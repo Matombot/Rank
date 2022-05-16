@@ -1,0 +1,39 @@
+body {
+    background-color: aquamarine;
+}
+
+
+.addDestination {
+    position: fixed;
+    width: 20%;
+    background-color: #CDD93F;
+    top: 0em;
+    right: 0em;
+    margin-right: 1em;
+    padding: 1em;
+    border-radius: 0.25em;
+}
+.addroute {
+    position: fixed;
+    width: 10%;
+    top: 0em;
+    right: 20%;
+}
+table, td, th {    
+    border: 0.5px solid rgb(55, 177, 150);
+    text-align: center;
+
+}
+.hidden {
+    display: none;
+}
+.footer {
+    display: flex;
+    background-color: #b0d11d;
+    border: 1px solid d;
+    padding: 1em;
+    margin: 1em;
+    margin-bottom: 0.5em;
+    border-radius: 1em;
+    bottom: 0em;
+  }

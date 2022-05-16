@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>routerank App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+
+
+<body>
+    <script>
+        ranks: ['Bree', 'MTN', 'Noord', 'Longdistance'];
+        fare: '';
+        queues: [];
+    </script>
+    <h1>Johannesburg route Rank</h1>
+    <br>
+    <div> <h3>the taxi takes a full capacity of 15 people</h3> </div>
+    <div>
+        <strong> Total profit for that day: <span x-text="total"></span> </strong>
+    </div>
+    <div class="container">
+        <div
+            x-data="{data:[
+            { Departure:'Bree',destination: 'Protea Glen', queue: 12, routeCount: 0, fare: 15.00, routeFareTotal: 0, routeAvail: 2 },
+            { Departure:'Bree',destination: 'NewTown', queue: 34, routeCount: 0, fare: 18.00, routeFareTotal: 0, routeAvail: 2},
+            { Departure:'Bree', destination: 'meadowlands', queue: 23, routeCount: 0, fare: 13.00, routeFareTotal: 0, routeAvail: 2 }],departure:'',passengers:15,destination: '', fare: '', queue: '',addRoute: false}">
+          
+            <table>
+                <tr>
+                    <th>Departure</th>
+                    <th>Destination</th>
+                    <th>Passenger action</th>
+                    <th>route action</th>
+                    <th>route trips</th>
+                    <th>Price</th>
+                    <th>Total price</th>
+                    <th>routes available</th>
+                </tr>
+
+                <template x-for="route in data">
+
+                    <tr>
+                        <td>
+                            <span x-text="route.Departure"></span>
+                        </td>
+                        <td>
+                            <span x-text="route.destination"></span>
+
+                        </td>
+                        <td>
+                            <template x-if="route.queue>= 0">
+                                <button style="background-color: red;" @click="route.queue--">-</button>
+                            </template>
+                            <span  style="background-color: yellow;" x-text="route.queue"></span>
+                            <button style="background-color: blue;" @click="route.queue++">+</button>
+                        </td>
+                        <td>
+                            <template x-if="route.queue>15 && route.routeAvail> 0">
+                                <button style=" background-color: green;"
+                                    @click="route.queue = route.queue-passengers, route.routeCount++, route.routeFareTotal+=(route.fare*passengers), route.routeAvail--">Leave</button>
+                            </template>
+                            <template x-if="15>route.queue || 0 > route.routeAvail">
+                                <button type="button" disabled
+                                    @click="route.queue=route.queue-passengers, route.routeCount++, route.routeFareTotal+=(route.fare*passengers), route.routeAvail--">Leave</button>
+                            </template>
+                        </td>
+                        <td>
+                            <span x-text="route.routeCount"></span>
+                        </td>
+                        <td>
+                            R<span x-text="route.fare.toFixed(2)"></span>
+                        </td>
+                        <td>
+                            R<span x-text="route.routeFareTotal.toFixed(2)"></span>
+                        </td>
+                        <td>
+                            <strong><span x-text="route.routeAvail"></span></strong>
+
+                        </td>
+
+                    </tr>
+
+                </template>
+
+            </table>
+            <br>
+
+
+            <button class="addroute" @click="addRoute = ! addRoute">Add route</button>
+            <br>
+            <div class="addDestination" x-show="addRoute">
+                <span>
+                    Destination:
+                    <br><input class="destination" type="text" placeholder="enter destination" x-model="destination ">
+
+                </span>
+                <br>
+                <span>
+                    Departure:
+                    <br><input class="departure" type="text" placeholder="departure" x-model="departure ">
+
+                </span>
+                <br>
+                <span>
+                    Fare:
+                    <br><input class="fare" type="text" placeholder="fare price" x-model.number="fare">
+                </span><br>
+              <br>
+                <button type="button" class="btn"
+                    @click="data.push({departure:departure,destination:destination, queue:0, routeCount:0, fare:fare, routeFareTotal:0, routeAvail: 2})">Add</button>
+
+            </div>
+
+
+
+
+        </div>
+
+
+    </div>
+    </div>
+    </div>
+    <div class="footer">
+        done by matombo tshifhiwa
+        <br>
+        <strong>Contact us at:</strong>
+        (021)-541-1000
+
+        <strong>twitter /fb /insta </strong>
+
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.0/dist/alpine.min.js" defer></script>
+
+</body>
+
+</html>
