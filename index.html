@@ -28,20 +28,20 @@
     <div class="container">
         <div
             x-data="{data:[
-            { Departure:'Bree',destination: 'Protea Glen', queue: 12, routeCount: 0, fare: 15.00, routeFareTotal: 0, routeAvail: 2 },
-            { Departure:'Bree',destination: 'NewTown', queue: 34, routeCount: 0, fare: 18.00, routeFareTotal: 0, routeAvail: 2},
-            { Departure:'Bree', destination: 'meadowlands', queue: 23, routeCount: 0, fare: 13.00, routeFareTotal: 0, routeAvail: 2 }],departure:'',passengers:15,destination: '', fare: '', queue: '',addRoute: false}">
+            { Departure:'Bree',destination: 'Protea Glen', queue: 12, routeCount: 0, fare: 15.00, routeFareTotal: 0, taxiAvailable: 2 },
+            { Departure:'Bree',destination: 'NewTown', queue: 34, routeCount: 0, fare: 18.00, routeFareTotal: 0, taxiAvailable: 2},
+            { Departure:'Bree', destination: 'meadowlands', queue: 23, routeCount: 0, fare: 13.00, routeFareTotal: 0, taxiAvailable: 2 }],departure:'',passengers:15,destination: '', fare: '', queue: '',addRoute: false}">
 
             <table>
                 <tr>
                     <th>Departure</th>
                     <th>Destination</th>
-                    <th>Passenger action</th>
-                    <th>route action</th>
-                    <th>route trips</th>
-                    <th>Price</th>
-                    <th>Total price</th>
-                    <th>routes available</th>
+                    <th>Passenger Actions</th>
+                    <th>Taxi Trips</th>
+                    <th>Trips Made</th>
+                    <th>Taxi Fare</th>
+                    <th>Total Fares</th>
+                    <th>Taxis available</th>
                 </tr>
 
                 <template x-for="route in data">
@@ -62,13 +62,13 @@
                             <button style="background-color: blue;" @click="route.queue++">+</button>
                         </td>
                         <td>
-                            <template x-if="route.queue>15 && route.routeAvail> 0">
+                            <template x-if="route.queue>15 && route.taxiAvailable> 0">
                                 <button style=" background-color: green;"
-                                    @click="route.queue = route.queue-passengers, route.routeCount++, route.routeFareTotal+=(route.fare*passengers), route.routeAvail--">Leave</button>
+                                    @click="route.queue = route.queue-passengers, route.routeCount++, route.routeFareTotal+=(route.fare*15), route.taxiAvailable--">Leave</button>
                             </template>
-                            <template x-if="15>route.queue || 0 > route.routeAvail">
+                            <template x-if="15>route.queue || 0 > route.taxiAvailable">
                                 <button type="button" disabled
-                                    @click="route.queue=route.queue-passengers, route.routeCount++, route.routeFareTotal+=(route.fare*passengers), route.routeAvail--">Leave</button>
+                                    @click="route.queue=route.queue-passengers, route.routeCount++, route.routeFareTotal+=(route.fare*15), route.taxiAvailable--">Leave</button>
                             </template>
                         </td>
                         <td>
@@ -81,7 +81,7 @@
                             R<span x-text="route.routeFareTotal.toFixed(2)"></span>
                         </td>
                         <td>
-                            <strong><span x-text="route.routeAvail"></span></strong>
+                            <strong><span x-text="route.taxiAvailable"></span></strong>
 
                         </td>
 
@@ -120,7 +120,7 @@
                 </span><br>
                 <br>
                 <button type="button" class="btn"
-                    @click="data.push({departure:departure,destination:destination, queue:0, routeCount:0, fare:fare, routeFareTotal:0, routeAvail: 1})">Add</button>
+                    @click="data.push({departure:departure,destination:destination, queue:0, routeCount:0, fare:fare, routeFareTotal:0, taxiAvailable: 1})">Add</button>
 
             </div>
 
