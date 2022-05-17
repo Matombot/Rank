@@ -19,7 +19,9 @@
     </script>
     <h1>Johannesburg route Rank</h1>
     <br>
-    <div> <h3>the taxi takes a full capacity of 15 people</h3> </div>
+    <div>
+        <h3>the taxi takes a full capacity of 15 people</h3>
+    </div>
     <div>
         <strong> Total profit for that day: <span x-text="total"></span> </strong>
     </div>
@@ -29,7 +31,7 @@
             { Departure:'Bree',destination: 'Protea Glen', queue: 12, routeCount: 0, fare: 15.00, routeFareTotal: 0, routeAvail: 2 },
             { Departure:'Bree',destination: 'NewTown', queue: 34, routeCount: 0, fare: 18.00, routeFareTotal: 0, routeAvail: 2},
             { Departure:'Bree', destination: 'meadowlands', queue: 23, routeCount: 0, fare: 13.00, routeFareTotal: 0, routeAvail: 2 }],departure:'',passengers:15,destination: '', fare: '', queue: '',addRoute: false}">
-          
+
             <table>
                 <tr>
                     <th>Departure</th>
@@ -56,7 +58,7 @@
                             <template x-if="route.queue>= 0">
                                 <button style="background-color: red;" @click="route.queue--">-</button>
                             </template>
-                            <span  style="background-color: yellow;" x-text="route.queue"></span>
+                            <span style="background-color: yellow;" x-text="route.queue"></span>
                             <button style="background-color: blue;" @click="route.queue++">+</button>
                         </td>
                         <td>
@@ -89,9 +91,15 @@
 
             </table>
             <br>
+            <div x-data="{ Addtaxi: false }">
 
+                <button class="addtaxi" @click="Addtaxi=!Addtaxi" x-html="Addtaxi ? 'Cancel' : 'Addtaxi'">Add
+                    Taxi</button>
 
-            <button class="addroute" @click="addRoute = ! addRoute">Add route</button>
+            </div>
+
+            <button class="addroute" @click="addRoute = ! addRoute" x-html="addRoute ? 'Hide' : 'addRoute' ">Add
+                route</button>
             <br>
             <div class="addDestination" x-show="addRoute">
                 <span>
@@ -110,9 +118,9 @@
                     Fare:
                     <br><input class="fare" type="text" placeholder="fare price" x-model.number="fare">
                 </span><br>
-              <br>
+                <br>
                 <button type="button" class="btn"
-                    @click="data.push({departure:departure,destination:destination, queue:0, routeCount:0, fare:fare, routeFareTotal:0, routeAvail: 2})">Add</button>
+                    @click="data.push({departure:departure,destination:destination, queue:0, routeCount:0, fare:fare, routeFareTotal:0, routeAvail: 1})">Add</button>
 
             </div>
 
@@ -123,18 +131,27 @@
 
 
     </div>
-    </div>
-    </div>
     <div class="footer">
-        done by matombo tshifhiwa
-        <br>
-        <strong>Contact us at:</strong>
-        (021)-541-1000
+        <div class="contact">
+            <strong>Contact us at:</strong>
+            (021)-541-1000
 
-        <strong>twitter /fb /insta </strong>
-
-
+            <strong>twitter /fb /insta </strong> 
+        </div>
+        
+        <div class="address">
+            <strong>Bree taxi rank</strong>
+            <br>
+            Johannesburg Plaza
+            <br>
+            stanza Road
+            <br>
+            NewTown 
+            <br>
+            7890
+        </div>
     </div>
+
 
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.0/dist/alpine.min.js" defer></script>
 

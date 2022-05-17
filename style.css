@@ -17,7 +17,17 @@ body {
     position: fixed;
     width: 10%;
     top: 0em;
-    right: 20%;
+    right: 27%;
+    background-color: #CDD93F;
+    border-radius: 00.25em;
+}
+.addtaxi {
+    position: fixed;
+    width: 10%;
+    top: 0em;
+    right: 38%;
+    background-color: #CDD93F;
+    border-radius: 00.25em;
 }
 table, td, th {    
     border: 0.5px solid rgb(55, 177, 150);
@@ -36,4 +46,9 @@ table, td, th {
     margin-bottom: 0.5em;
     border-radius: 1em;
     bottom: 0em;
+  }
+  .footer div {
+    flex: 1;
+    border-radius: 1em;
+    background-color: #b0d11d;
   }
