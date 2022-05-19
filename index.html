@@ -16,6 +16,7 @@
         ranks: ['Bree', 'MTN', 'Noord', 'Longdistance'];
         fare: '';
         queues: [];
+
     </script>
     <h1>Johannesburg route Rank</h1>
     <br>
@@ -28,7 +29,8 @@
             x-data="{data:[
             { departure:'Bree',destination: 'Protea Glen', queue: 12, routeCount: 0, fare: 15.00, totalFare: 0, taxiAvailable: 2 },
             { departure:'Bree',destination: 'NewTown', queue: 34, routeCount: 0, fare: 18.00, totalFare: 0, taxiAvailable: 2},
-            { departure:'Bree', destination: 'meadowlands', queue: 23, routeCount: 0, fare: 13.00, totalFare: 0, taxiAvailable: 2 }],taxiAvailable:'',Addtaxi: false, regNumber:'',totalFareofthatDAy:0,departure:'Bree',passengers:15,destination: '', fare: '', queue: '',addRoute: false}">
+            { departure:'Bree', destination: 'Meadowlands', queue: 23, routeCount: 0, fare: 13.00, totalFare: 0, taxiAvailable: 2 }],data: JSON.parse(localStorage.getItem('data') || '[]'),routes:this.destination='',show:'',taxiAvailable:'',Addtaxi: false, regNumber:'',totalFareofthatDAy:0,departure:'Bree',passengers:15,destination: '', fare: '', queue: '',addRoute: false}" 
+            x-init="$watch('data', (val) => localStorage.setItem('data', JSON.stringify(val)))">
             <div>
                 <strong> Total profit for that day: <span x-text="totalFareofthatDAy.toFixed(2)"></span> </strong>
                 <br>
@@ -61,14 +63,15 @@
                             <button style="background-color: red;"
                                 @click="route.queue ? route.queue--: route.queue=0">-</button>
 
-                            <span style="background-color: yellow;" x-text="route.queue"></span>
+                            <span style="background-color: palevioletred;" x-text="route.queue"></span>
                             <button style="background-color: blue;" @click="route.queue++">+</button>
                         </td>
                         <td>
-                            
-                                <button type="button" :disabled="route.queue<15 || route.taxiAvailable<=0" :enable="route.queue>=15 && route.taxiAvailable> 0 && route.totalFare>=0"
-                                    @click="route.queue=route.queue-passengers, route.routeCount++,totalFareofthatDAy+=(route.fare*passengers), route.totalFare+=(route.fare*15), route.taxiAvailable--">Leave</button>
-                            
+
+                            <button type="button" :disabled="route.queue<15 || route.taxiAvailable<=0"
+                                :enable="route.queue>=15 && route.taxiAvailable> 0 && route.totalFare>=0"
+                                @click="route.queue=route.queue-passengers, route.routeCount++,totalFareofthatDAy+=(route.fare*passengers), route.totalFare+=(route.fare*15), route.taxiAvailable--">Leave</button>
+
 
                         </td>
                         <td>
@@ -83,7 +86,8 @@
                         <td>
                             <strong><span x-text="route.taxiAvailable"></span></strong>
                             <template x-if="route.taxiAvailable == 0">
-                                <div class="msg" style=" background-color: orange;">there are no available taxis please wait for the next one</div>
+                                <div class="msg" style=" background-color: orange;">there are no available taxis please
+                                    wait for the next one</div>
                             </template>
                         </td>
 
@@ -95,33 +99,34 @@
             <br>
             <div>
 
-                <button class="addtaxi" @click="Addtaxi=!Addtaxi" x-html="Addtaxi ? 'Cancel' : 'Addtaxi'">AddTaxi</button>
+                <button class="addtaxi" @click="Addtaxi=!Addtaxi"
+                    x-html="Addtaxi ? 'Cancel' : 'Addtaxi'">AddTaxi</button>
 
                 <div class="addDestina" x-show="Addtaxi" style="display: none;">
                     <span>
                         taxi registration:
                         <br><input type="text" placeholder="enter reg number" x-model="regNumber ">
-    
+
                     </span>
                     <br>
                     <br>
                     <span>
                         Destination:
-                        <br><input class="destination" type="text" placeholder="enter destination" x-model="destination ">
-    
+                        <br><input class="destination" type="text" placeholder="enter destination"
+                            x-model="destination ">
                     </span>
-                    <br>
-                    <!-- <span>
-                        number of taxi :
-                        <br><input class="taxiAvailable" type="number" placeholder="number of taxi" x-model.number="taxiAvailable">
-                    </span><br> -->
-                    <br>
-                    <template x-if="destination==destination">
-                      <button type="button" class="btn" 
-                        @click="taxiAvailable++.push({taxiAvailable})">Add</button>
-      
-                    </template>
                     
+                        <select x-model="show">
+                            <template x-for="route in data">
+                        <option x-text="route.destination"></option>
+                    </template> 
+                        </select>
+                    
+                    <br>
+                    <button class="btn" @click="taxiAvailable++(route.destination) ,Addtaxi=false ">Add</button>
+
+
+
                 </div>
             </div>
             <div>
@@ -146,7 +151,7 @@
                 </span><br>
                 <br>
                 <button type="button" class="btn"
-                    @click="data.push({departure:departure,destination:destination, queue:0, routeCount:0, fare:fare, totalFare:0, taxiAvailable: 1})">Add</button>
+                    @click="data.push({departure:departure,destination:destination, queue:0, routeCount:0, fare:fare, totalFare:0, taxiAvailable: 3})">Add</button>
 
             </div>
 
