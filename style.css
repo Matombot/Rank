@@ -7,17 +7,29 @@ body {
     position: fixed;
     width: 20%;
     background-color: #CDD93F;
-    top: 0em;
+    top: 3em;
     right: 0em;
     margin-right: 1em;
     padding: 1em;
     border-radius: 0.25em;
+    
+}
+.addDestina {
+    position: fixed;
+    width: 20%;
+    background-color: #CDD93F;
+    top: 6em;
+    right: 0em;
+    margin-right: 1em;
+    padding: 1em;
+    border-radius: 0.25em;
+    
 }
 .addroute {
     position: fixed;
-    width: 10%;
+    width: 9%;
     top: 0em;
-    right: 27%;
+    right: 7%;
     background-color: #CDD93F;
     border-radius: 00.25em;
 }
@@ -25,14 +37,22 @@ body {
     position: fixed;
     width: 10%;
     top: 0em;
-    right: 38%;
+    right: 17%;
     background-color: #CDD93F;
     border-radius: 00.25em;
 }
-table, td, th {    
-    border: 0.5px solid rgb(55, 177, 150);
-    text-align: center;
+ td, th,tr {    
+    padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04AA6D;
+  color: white;
+  border-collapse: collapse;
+    
 
+}
+table{
+    width: 70%;
 }
 .hidden {
     display: none;
