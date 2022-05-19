@@ -26,11 +26,11 @@
     <div class="container">
         <div
             x-data="{data:[
-            { departure:'Bree',destination: 'Protea Glen', queue: 12, routeCount: 0, fare: 15.00, routeFareTotal: 0, taxiAvailable: 2 },
-            { departure:'Bree',destination: 'NewTown', queue: 34, routeCount: 0, fare: 18.00, routeFareTotal: 0, taxiAvailable: 2},
-            { departure:'Bree', destination: 'meadowlands', queue: 23, routeCount: 0, fare: 13.00, routeFareTotal: 0, taxiAvailable: 2 }],taxiAvailable:'',Addtaxi: false, regNumber:'',routeFareTotal:'',departure:'Bree',passengers:15,destination: '', fare: '', queue: '',addRoute: false}">
+            { departure:'Bree',destination: 'Protea Glen', queue: 12, routeCount: 0, fare: 15.00, totalFare: 0, taxiAvailable: 2 },
+            { departure:'Bree',destination: 'NewTown', queue: 34, routeCount: 0, fare: 18.00, totalFare: 0, taxiAvailable: 2},
+            { departure:'Bree', destination: 'meadowlands', queue: 23, routeCount: 0, fare: 13.00, totalFare: 0, taxiAvailable: 2 }],taxiAvailable:'',Addtaxi: false, regNumber:'',totalFareofthatDAy:0,departure:'Bree',passengers:15,destination: '', fare: '', queue: '',addRoute: false}">
             <div>
-                <strong> Total profit for that day: <span x-text="data.routeFareTotal"></span> </strong>
+                <strong> Total profit for that day: <span x-text="totalFareofthatDAy.toFixed(2)"></span> </strong>
                 <br>
                 Number of queues: <span x-text="data.length"></span>
             </div>
@@ -65,14 +65,10 @@
                             <button style="background-color: blue;" @click="route.queue++">+</button>
                         </td>
                         <td>
-                            <template x-if="route.queue>=15 && route.taxiAvailable> 0 && route.routeFareTotal>=0">
-                                <button style=" background-color: green;"
-                                    @click="route.queue = route.queue-passengers, route.routeCount++, route.routeFareTotal+=(route.fare*passengers), route.taxiAvailable--">Leave</button>
-                            </template>
-                            <template x-if="route.queue<15 || route.taxiAvailable<0">
-                                <button type="button" disabled
-                                    @click="route.queue=route.queue-passengers, route.routeCount++, route.routeFareTotal+=(route.fare*passengers), route.taxiAvailable--">Leave</button>
-                            </template>
+                            
+                                <button type="button" :disabled="route.queue<15 || route.taxiAvailable<=0" :enable="route.queue>=15 && route.taxiAvailable> 0 && route.totalFare>=0"
+                                    @click="route.queue=route.queue-passengers, route.routeCount++,totalFareofthatDAy+=(route.fare*passengers), route.totalFare+=(route.fare*15), route.taxiAvailable--">Leave</button>
+                            
 
                         </td>
                         <td>
@@ -82,7 +78,7 @@
                             R<span x-text="route.fare.toFixed(2)"></span>
                         </td>
                         <td>
-                            R<span x-text="route.routeFareTotal.toFixed(2)"></span>
+                            R<span x-text="route.totalFare.toFixed(2)"></span>
                         </td>
                         <td>
                             <strong><span x-text="route.taxiAvailable"></span></strong>
@@ -115,14 +111,14 @@
     
                     </span>
                     <br>
-                    <span>
+                    <!-- <span>
                         number of taxi :
                         <br><input class="taxiAvailable" type="number" placeholder="number of taxi" x-model.number="taxiAvailable">
-                    </span><br>
+                    </span><br> -->
                     <br>
                     <template x-if="destination==destination">
                       <button type="button" class="btn" 
-                        @click="taxiAvailable++">Add</button>
+                        @click="taxiAvailable++.push({taxiAvailable})">Add</button>
       
                     </template>
                     
@@ -150,7 +146,7 @@
                 </span><br>
                 <br>
                 <button type="button" class="btn"
-                    @click="data.push({departure:departure,destination:destination, queue:0, routeCount:0, fare:fare, routeFareTotal:0, taxiAvailable: 1})">Add</button>
+                    @click="data.push({departure:departure,destination:destination, queue:0, routeCount:0, fare:fare, totalFare:0, taxiAvailable: 1})">Add</button>
 
             </div>
 
